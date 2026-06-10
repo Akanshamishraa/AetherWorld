@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AetherWorld | AI Art Generator & Visual Worldbuilder Studio</title>
+    <meta name="description" content="An interactive showcase of AI art generation, prompt engineering, and visual worldbuilding presets. Build your sci-fi and fantasy worlds.">
+    <!-- Google Fonts: Orbitron for Sci-Fi vibe, Outfit for modern tech UI -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Space Dust Particles Canvas -->
+    <div class="space-bg">
+        <div class="stars"></div>
+        <div class="glowing-orb orb-1"></div>
+        <div class="glowing-orb orb-2"></div>
+    </div>
+
+    <!-- App Wrapper -->
+    <div class="app-container">
+        <!-- Navigation Header -->
+        <header class="app-header">
+            <div class="logo-area">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 22H22L12 2Z" stroke="url(#logo-grad)" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M12 6L5 20H19L12 6Z" fill="url(#logo-grad)" fill-opacity="0.2"/>
+                        <circle cx="12" cy="13" r="3" stroke="#ff007f" stroke-width="1.5"/>
+                        <defs>
+                            <linearGradient id="logo-grad" x1="2" y1="2" x2="22" y2="22" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#00f0ff" />
+                                <stop offset="1" stop-color="#ff007f" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <h1>AETHERWORLD</h1>
+                    <span>VISUAL WORLDBUILDER STUDIO</span>
+                </div>
+            </div>
+            
+            <nav class="nav-tabs">
+                <button class="nav-tab active" id="tab-worldbuilder" data-tab="worldbuilder">
+                    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    World Map
+                </button>
+                <button class="nav-tab" id="tab-workspace" data-tab="workspace">
+                    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v8"/><path d="M8 12h8"/></svg>
+                    Generator Workspace
+                </button>
+                <button class="nav-tab" id="tab-gallery" data-tab="gallery">
+                    <svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    Art Gallery
+                </button>
+            </nav>
+
+            <div class="header-badge">
+                <span class="status-dot"></span>
+                <span>SYSTEM ONLINE</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            
+            <!-- SECTION 1: WORLD BUILDER (Interactive Map) -->
+            <section class="tab-panel active" id="panel-worldbuilder">
+                <div class="worldbuilder-layout">
+                    <!-- Left: Interactive Map -->
+                    <div class="map-container card">
+                        <div class="map-header">
+                            <h2>Visual Constellation Map</h2>
+                            <p>Select a dimensional coordinates node to inspect simulated world aesthetics.</p>
+                        </div>
+                        <div class="constellation-grid" id="constellation-map">
+                            <!-- SVG lines connecting nodes -->
+                            <svg class="connections-svg" id="connections-svg">
+                                <!-- Lines will be drawn dynamically in JS -->
+                            </svg>
+                            
+                            <!-- Glowing nodes -->
+                            <div class="map-node active" id="node-cyberpunk" style="top: 25%; left: 15%;" data-world="cyberpunk">
+                                <div class="node-ring"></div>
+                                <div class="node-core"></div>
+                                <span class="node-label">Neo-Tokyo</span>
+                            </div>
+                            <div class="map-node" id="node-fantasy" style="top: 15%; left: 55%;" data-world="fantasy">
+                                <div class="node-ring"></div>
+                                <div class="node-core"></div>
+                                <span class="node-label">Aetheria</span>
+                            </div>
+                            <div class="map-node" id="node-steampunk" style="top: 75%; left: 35%;" data-world="steampunk">
+                                <div class="node-ring"></div>
+                                <div class="node-core"></div>
+                                <span class="node-label">Clockwork Sky</span>
+                            </div>
+                            <div class="map-node" id="node-bioluminescent" style="top: 45%; left: 78%;" data-world="bioluminescent">
+                                <div class="node-ring"></div>
+                                <div class="node-core"></div>
+                                <span class="node-label">Lumira Ocean</span>
+                            </div>
+                            <div class="map-node" id="node-solarpunk" style="top: 70%; left: 75%;" data-world="solarpunk">
+                                <div class="node-ring"></div>
+                                <div class="node-core"></div>
+                                <span class="node-label">Ecotopia Oasis</span>
+                            </div>
+                            <div class="map-node" id="node-cosmic" style="top: 55%; left: 45%;" data-world="cosmic">
+                                <div class="node-ring"></div>
+                                <div class="node-core"></div>
+                                <span class="node-label">Cosmic Forge</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: World Info Card -->
+                    <div class="world-info-panel card glow-border" id="world-info-panel">
+                        <div class="world-image-container">
+                            <img src="assets/images/cyberpunk.png" alt="World Visual Preview" id="info-world-img">
+                            <div class="image-gradient-overlay"></div>
+                            <div class="world-tag" id="info-world-tag">CYBERPUNK</div>
+                        </div>
+                        <div class="world-details">
+                            <h3 id="info-world-title">Neo-Tokyo 2099</h3>
+                            <p class="world-lore" id="info-world-lore">
+                                A sprawling cyber-metropolis illuminated by vertical neon advertising corridors and constant acid rain. Hover-traffic streams between titanium towers, while the undercity runs on black-market cyberware and retro-tech grids.
+                            </p>
+                            
+                            <div class="prompt-box">
+                                <label>Target Art Prompt</label>
+                                <div class="prompt-text-container">
+                                    <p id="info-world-prompt">A stunning neon-lit rainy cyberpunk street at night, towering skyscrapers with glowing holographic ads, flying cars leaving light trails, highly detailed digital art, cinematic lighting, octane render, 8k.</p>
+                                    <button class="icon-btn" id="btn-copy-info-prompt" title="Copy Prompt">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="meta-stats-grid">
+                                <div class="meta-stat">
+                                    <span class="meta-label">DIMENSIONAL ID</span>
+                                    <span class="meta-val" id="info-world-dim">D-2099</span>
+                                </div>
+                                <div class="meta-stat">
+                                    <span class="meta-label">RENDERING STABILITY</span>
+                                    <span class="meta-val">98.4%</span>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary btn-full" id="btn-load-in-workspace">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;margin-right:8px;"><path d="M5 12h14"/><path d="M12 5l7 7-7 7"/></svg>
+                                Load in Art Workspace
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: GENERATOR WORKSPACE -->
+            <section class="tab-panel" id="panel-workspace">
+                <div class="workspace-layout">
+                    <!-- Left Panel: Parameters / Generation Controls -->
+                    <div class="controls-panel card">
+                        <div class="panel-section">
+                            <h3>1. Define Prompt</h3>
+                            <div class="prompt-input-wrapper">
+                                <textarea id="workspace-prompt" placeholder="Describe your cosmic, futuristic or fantasy world..."></textarea>
+                                <div class="enhancer-bar">
+                                    <span class="enhancer-label">AI Prompt Enhancer</span>
+                                    <label class="switch">
+                                        <input type="checkbox" id="toggle-enhancer">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-section">
+                            <h3>2. Select Style Preset</h3>
+                            <div class="style-presets-grid" id="style-presets">
+                                <div class="style-card active" data-style="cyberpunk">
+                                    <div class="style-icon" style="background-image: linear-gradient(135deg, #00f0ff 0%, #ff007f 100%)"></div>
+                                    <span>Cyberpunk</span>
+                                </div>
+                                <div class="style-card" data-style="fantasy">
+                                    <div class="style-icon" style="background-image: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)"></div>
+                                    <span>Fantasy</span>
+                                </div>
+                                <div class="style-card" data-style="steampunk">
+                                    <div class="style-icon" style="background-image: linear-gradient(135deg, #f6d365 0%, #fda085 100%)"></div>
+                                    <span>Steampunk</span>
+                                </div>
+                                <div class="style-card" data-style="bioluminescent">
+                                    <div class="style-icon" style="background-image: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"></div>
+                                    <span>Bioluminescent</span>
+                                </div>
+                                <div class="style-card" data-style="solarpunk">
+                                    <div class="style-icon" style="background-image: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"></div>
+                                    <span>Solarpunk</span>
+                                </div>
+                                <div class="style-card" data-style="cosmic">
+                                    <div class="style-icon" style="background-image: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"></div>
+                                    <span>Cosmic</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-section">
+                            <div class="accordion-header" id="advanced-toggle">
+                                <h3>3. Advanced Parameters</h3>
+                                <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                            </div>
+                            <div class="accordion-content open" id="advanced-content">
+                                <div class="control-group">
+                                    <div class="control-label-row">
+                                        <label>Aspect Ratio</label>
+                                        <span class="control-val" id="val-ratio">1:1 (Square)</span>
+                                    </div>
+                                    <div class="ratio-selectors">
+                                        <button class="ratio-btn active" data-ratio="1:1" title="Square (1024x1024)">1:1</button>
+                                        <button class="ratio-btn" data-ratio="16:9" title="Landscape (1344x768)">16:9</button>
+                                        <button class="ratio-btn" data-ratio="9:16" title="Portrait (768x1344)">9:16</button>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="control-label-row">
+                                        <label>Guidance Scale (CFG)</label>
+                                        <span class="control-val" id="val-cfg">7.5</span>
+                                    </div>
+                                    <input type="range" class="range-slider" id="slider-cfg" min="1" max="15" step="0.5" value="7.5">
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="control-label-row">
+                                        <label>Generation Steps</label>
+                                        <span class="control-val" id="val-steps">30</span>
+                                    </div>
+                                    <input type="range" class="range-slider" id="slider-steps" min="10" max="75" step="5" value="30">
+                                </div>
+
+                                <div class="control-group">
+                                    <div class="control-label-row">
+                                        <label>Seed</label>
+                                        <span class="control-val text-muted" id="val-seed-auto">Random</span>
+                                    </div>
+                                    <input type="text" class="text-input" id="input-seed" placeholder="e.g. 481023791">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-full btn-large glow-btn" id="btn-generate">
+                            <span class="btn-text">Generate Visual World</span>
+                            <span class="sparkle-icon">✦</span>
+                        </button>
+                    </div>
+
+                    <!-- Right Panel: Creative Output / Live Canvas -->
+                    <div class="canvas-panel card">
+                        <!-- STATE A: EMPTY / INITIAL -->
+                        <div class="canvas-state active" id="state-empty">
+                            <div class="empty-graphic">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                    <line x1="21" y1="12" x2="3" y2="12"/>
+                                    <line x1="12" y1="3" x2="12" y2="21"/>
+                                    <circle cx="12" cy="12" r="4" stroke-dasharray="3,3"/>
+                                </svg>
+                            </div>
+                            <h3>Awaiting Visual Formula</h3>
+                            <p>Configure prompts, style presets, and dimensional parameters, then click generate to render the world.</p>
+                        </div>
+
+                        <!-- STATE B: GENERATING LOADING -->
+                        <div class="canvas-state" id="state-generating">
+                            <div class="matrix-loader">
+                                <div class="cyber-circle"></div>
+                                <div class="scanning-beam"></div>
+                            </div>
+                            <h3 class="status-heading">Synthesizing Visual Coordinates</h3>
+                            
+                            <!-- Console Progress Logs -->
+                            <div class="terminal-logs" id="terminal-logs">
+                                <div class="log-line">Initializing latent diffusion system...</div>
+                            </div>
+
+                            <div class="progress-bar-container">
+                                <div class="progress-fill" id="generation-progress"></div>
+                                <span class="progress-text" id="progress-percentage">0%</span>
+                            </div>
+                        </div>
+
+                        <!-- STATE C: COMPLETE OUTPUT -->
+                        <div class="canvas-state" id="state-complete">
+                            <div class="output-canvas-container" id="output-canvas-container">
+                                <img src="" alt="AI Art Output" class="output-img" id="output-img">
+                                <div class="canvas-controls">
+                                    <button class="canvas-action-btn" id="btn-zoom" title="Full Screen View">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 3h6v6"/><path d="M9 21H3v-6"/><path d="M21 3l-7 7"/><path d="M3 21l7-7"/></svg>
+                                    </button>
+                                    <button class="canvas-action-btn" id="btn-copy-seed" title="Copy Metadata Info">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg>
+                                    </button>
+                                    <button class="canvas-action-btn" id="btn-download" title="Download High-Res">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="output-metadata">
+                                <div>
+                                    <h4 id="output-meta-title">Cyberpunk Tokyo Alleyway</h4>
+                                    <p class="output-meta-prompt" id="output-meta-prompt">Prompt text</p>
+                                </div>
+                                <div class="meta-tag-row">
+                                    <span class="meta-badge" id="output-badge-style">Style: Cyberpunk</span>
+                                    <span class="meta-badge" id="output-badge-ratio">Ratio: 1:1</span>
+                                    <span class="meta-badge" id="output-badge-seed">Seed: 9283749</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: ART GALLERY -->
+            <section class="tab-panel" id="panel-gallery">
+                <div class="gallery-container">
+                    <div class="gallery-header">
+                        <div>
+                            <h2>Visual Worlds Showcase</h2>
+                            <p>Browse previously generated environments. Click on cards to copy seed configuration and prompt structures.</p>
+                        </div>
+                        <div class="gallery-filters" id="gallery-filters">
+                            <button class="filter-btn active" data-filter="all">All Realms</button>
+                            <button class="filter-btn" data-filter="cyberpunk">Cyberpunk</button>
+                            <button class="filter-btn" data-filter="fantasy">Fantasy</button>
+                            <button class="filter-btn" data-filter="steampunk">Steampunk</button>
+                            <button class="filter-btn" data-filter="bioluminescent">Bioluminescent</button>
+                            <button class="filter-btn" data-filter="solarpunk">Solarpunk</button>
+                            <button class="filter-btn" data-filter="cosmic">Cosmic</button>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Masonry Grid -->
+                    <div class="gallery-grid" id="gallery-grid">
+                        <!-- Cards will be populated dynamically from JS -->
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <!-- <p>Designed and built for the PeakPals AI Art Generator / Visual Worldbuilder developer assessment.</p> -->
+            <div class="footer-links">
+                <span>Developer Sandbox Mode</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Fullscreen Zoom Modal -->
+    <div class="modal-overlay" id="zoom-modal">
+        <div class="modal-close" id="modal-close-btn">&times;</div>
+        <div class="modal-content">
+            <img src="" alt="Fullscreen Artwork" id="modal-img">
+            <div class="modal-caption" id="modal-caption">Caption details</div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast-notification" id="toast">
+        <span id="toast-message">Copied to clipboard!</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
